@@ -29,7 +29,7 @@ class nilaiController extends Controller
         foreach ($arr as $key => $val) {
             $total[$key] = array_sum($val);       
         }
-        dd($total);
+        //dd($total);
         
         
         return view('nilai.index', ['nilais'=> $nilais, 'kriteria' => Kriteria::all(), 'total' => $total]);

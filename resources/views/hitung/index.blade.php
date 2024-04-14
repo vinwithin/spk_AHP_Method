@@ -2,8 +2,8 @@
 @section('nilai')
     <ul class="nav nav-pills p-2">
         <li class="active"><a data-toggle="pill" href="#home">Perhitungan</a></li>
-        <li><a data-toggle="pill" href="#menu1">Normalisasi</a></li>
-        <li><a data-toggle="pill" href="#menu2">Terbobot</a></li>
+        <li><a data-toggle="pill" href="#menu1">Konsistensi Persentase M1</a></li>
+        <li><a data-toggle="pill" href="#menu2">Dihitung Total</a></li>
         <li><a data-toggle="pill" href="#menu3">Ranking</a></li>
     </ul>
     <div class="tab-content">
@@ -29,6 +29,7 @@
                                 @endforeach
                                 <th scope="col">Jumlah</th>
                                 <th scope="col">Prioritas</th>
+                                <th scope="col">Eigen Value</th>
                                 
                             </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                     @endforeach
                                     <td>{{$jumlah[$key]}}</td>
                                     <td>{{$prioritas[$key]}}</td>
+                                    <td>{{$eigenValue[$key]}}</td>
 
                                 </tr>
                             @endforeach
@@ -56,7 +58,7 @@
 
             </div>
         </div>
-        {{-- <div id="menu1" class="tab-pane fade  ">
+        <div id="menu1" class="tab-pane fade  ">
             <div class="d-flex card shadow p-3">
 
                 <div class="table-responsive col-lg-">
@@ -67,30 +69,29 @@
                     <table class="table table-striped table-hover ">
                         <thead>
                             <tr>
-                                <th scope="col">No</th>
-                                @foreach ($kriterias as $kriteria)
-                                    <th>{{ $kriteria->nama_kriteria }}({{ $kriteria->atribut }}:
-                                        {{ $kriteria->bobot }})</th>
-                                @endforeach                             
+                                <th scope="col">CI</th>
+                                <th scope="col">RI</th>
+                                <th scope="col">CR</th>
+                                                          
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($normal as $key => $val)
+                            
                                 <tr>
-                                    <td>{{ $key }}</td>
-                                    @foreach ($val as $k => $v)
-                                        <td >{{ round($v, 4) }}</td>
-                                    @endforeach
+                                    <td>{{ $ci }}</td>
+                                    <td>{{ $ri }}</td>
+                                    <td>{{ $cr }}</td>
+                                    
                                 </tr>
-                            @endforeach
+                            
                         </tbody>
                     </table>
 
                 </div>
 
             </div>
-        </div> --}}
-        {{-- <div id="menu2" class="tab-pane fade  ">
+        </div>
+        <div id="menu2" class="tab-pane fade  ">
             <div class="d-flex card shadow p-3">
 
                 <div class="table-responsive col-lg-">
@@ -106,18 +107,20 @@
                             <tr>
                                 <th scope="col">No</th>
                                 @foreach ($kriterias as $kriteria)
-                                    <th>{{ $kriteria->nama_kriteria }}({{ $kriteria->atribut }}:
-                                        {{ $kriteria->bobot }})</th>
-                                @endforeach                              
+                                    <th>{{ $kriteria->nama_kriteria }}</th>
+                                @endforeach  
+                                <th scope="col">Total</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($terbobot as $key => $val)
+                            @foreach ($jumlah_total as $key => $val)
                             <tr>
-                                <td>{{ $key }}</td>
+                                <td>{{ $alternatif[$key]->nama_alternatif }}</td>
                                 @foreach ($val as $k => $v)
-                                    <td>{{ round($v, 4) }}</td>
+                                    <td>{{ $v }}</td>
                                 @endforeach
+                                <td>{{$akhir[$key]}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -126,8 +129,8 @@
                 </div>
 
             </div>
-        </div> --}}
-        {{-- <div id="menu3" class="tab-pane fade">
+        </div>
+        <div id="menu3" class="tab-pane fade">
             <div class="d-flex card shadow p-3">
 
                 <div class="table-responsive col-lg-">
@@ -152,8 +155,8 @@
                             <tr>
                                 <td>{{ $val }}</td>
                                 <td>{{ $key }}</td>
-                                <td>{{ $alternatifs[$key]->nama_alternatif }}</td>
-                                <td>{{ round($total[$key], 4) }}</td>
+                                <td>{{ $alternatif[$key]->nama_alternatif }}</td>
+                                <td>{{ round($akhir[$key], 4) }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -162,7 +165,7 @@
                 </div>
 
             </div>
-        </div> --}}
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
